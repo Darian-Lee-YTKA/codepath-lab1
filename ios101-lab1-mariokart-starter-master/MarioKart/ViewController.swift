@@ -29,6 +29,12 @@ class ViewController: UIViewController,
     originalKartCenters = [kartView0.center,
                            kartView1.center,
                            kartView2.center]
+    //runStartingAnimationsAllAtOnce()
+      
+    //runStartingAnimationsOneByOne()
+    //raceKartsWithRandomizedSpeed()
+    raceKartsWithSameSpeed()
+    
   }
   
   //  Called when user double-taps a kart
@@ -36,7 +42,9 @@ class ViewController: UIViewController,
     // Exercise 1: Move the kart forward past the edge of the screen
     // Tip: Use the `translate` function below
     // YOUR CODE HERE
-      translate(kart: sender.view, by: view.frame.width)
+      translate(kart: sender.view, by: view.frame.width){
+          self.translate(kart: sender.view, by: -self.view.frame.width)
+      }
     
     // Exercise 6: Move the kart back to its original position after you've moved it off the screen
     // Tip: Change your usage of the `translate` function to
@@ -167,14 +175,20 @@ class ViewController: UIViewController,
   // Tip: Use the `translate` function above
   private func raceKartsWithSameSpeed() {
     // YOUR CODE HERE
-      for kart_inst in [self.kartView0, self.kartView1, self.kartView2]
-      translate(kart: kart_inst, by: view.frame.width)
+      for kart_inst in [self.kartView0, self.kartView1, self.kartView2]{
+          translate(kart: kart_inst, by: view.frame.width)
+      }
       
   }
   
   // Exercise 10: Have the karts race all at once to the finish line!
   // Tip: Use the `translate` function above
   private func raceKartsWithRandomizedSpeed() {
+      
+      for kart_inst in [self.kartView0, self.kartView1, self.kartView2]{
+          let kartSpeed = Double.random(in: 0.5...5)
+          translate(kart: kart_inst, by: view.frame.width, animationDuration: kartSpeed)
+      }
     // YOUR CODE HERE
   }
 }
